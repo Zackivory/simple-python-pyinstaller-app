@@ -3,13 +3,11 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
-    environment {
-        PATH = "/usr/bin:$PATH" // Adjust according to where Python is installed
-    }
+
     stages {
         stage('Build') {
             steps {
-                sh 'python3 -m py_compile sources/add2vals.py sources/calc.py'
+                sh '/usr/bin/python3 -m py_compile sources/add2vals.py sources/calc.py'
                 stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
         }
