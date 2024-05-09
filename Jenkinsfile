@@ -4,6 +4,15 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+        stage('Setup Environment') {
+            steps {
+                sh '''
+                    python -m venv venv
+                    . venv/bin/activate
+                    pip install pytest
+                '''
+            }
+        }
         stage('Build') {
             steps {
                 sh 'python -m py_compile sources/add2vals.py sources/calc.py'
@@ -12,7 +21,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '/root/anaconda3/bin/pytest --junit-xml test-reports/results.xml sources/test_calc.py'
+                sh '''
+            . venv/bin/activate
+            pytest --junit-xml test-reports/results.xml sources/test_calc.py
+        '''
             }
             post {
                 always {
