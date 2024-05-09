@@ -3,6 +3,9 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    environment {
+        PATH = "/root/anaconda3/bin:$PATH"
+    }
     stages {
         stage('Build') {
             steps {
