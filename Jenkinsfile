@@ -5,6 +5,14 @@ pipeline {
     }
 
     stages {
+    stage('Setup Python') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y python3 python3-pip
+                '''
+            }
+        }
         stage('Build') {
             steps {
                 sh '/usr/bin/python3 -m py_compile sources/add2vals.py sources/calc.py'
