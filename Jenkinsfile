@@ -3,6 +3,9 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    environment {
+        PATH = "/usr/bin:$PATH" // Adjust according to where Python is installed
+    }
     stages {
         stage('Build') {
             steps {
